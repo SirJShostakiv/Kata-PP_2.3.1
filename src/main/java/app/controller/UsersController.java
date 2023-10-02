@@ -3,9 +3,11 @@ package app.controller;
 import app.model.User;
 import app.model.UserDTO;
 import app.service.UserService;
+import javax.validation.Valid;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -32,12 +34,11 @@ public class UsersController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("user") UserDTO user) {
-        User persistentUser = new User();
-        persistentUser.setName(user.getName());
-        persistentUser.setLastName(user.getLastName());
-        persistentUser.setAge(user.getAge());
-        userService.create(persistentUser);
+    public String create(@ModelAttribute("user") @Valid UserDTO user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "new";
+        }
+        userService.create(new User(user.getName(), user.getLastName(), user.getAge()));
         return REDIRECT;
     }
 
@@ -54,14 +55,14 @@ public class UsersController {
     }
 
     @PatchMapping("/{id}")
-    public String edit(@ModelAttribute("user") UserDTO user, @PathVariable("id") int id) {
-        User persistentUser = new User();
-        persistentUser.setName(user.getName());
-        persistentUser.setLastName(user.getLastName());
-        persistentUser.setAge(user.getAge());
-        userService.update(persistentUser, id);
+    public String edit(@ModelAttribute("user") @Valid UserDTO user, BindingResult bindingResult, @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        }
+        userService.update(new User(user.getName(), user.getLastName(), user.getAge()), id);
         return REDIRECT;
     }
+
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.delete(id);

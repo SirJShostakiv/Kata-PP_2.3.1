@@ -7,7 +7,8 @@
 <body>
 <form th:method="GET" th:action="@{/users/{id}}">
     <label for="id">Enter ID</label>
-    <input name="id" type="text" id="id">
+    <br/>
+    <input name="id" type="number" id="id" required>
     <br/>
     <input type="submit" value="Submit"/>
 </form>

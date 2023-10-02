@@ -8,6 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO{
 
     private final EntityManagerFactory entityManagerFactory;
-
+    @Autowired
     public UserDAOImpl(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }

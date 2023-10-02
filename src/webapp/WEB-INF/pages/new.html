@@ -7,13 +7,16 @@
 <body>
 <form th:method="POST" th:action="@{/users}" th:object="${user}">
     <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name">
+    <input type="text" th:field="*{name}" id="name" pattern="[A-Za-z]\w+">
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     <br/>
     <label for="lastName">Last Name</label>
-    <input type="text" th:field="*{lastName}" id="lastName"/>
+    <input type="text" th:field="*{lastName}" id="lastName" pattern="[A-Za-z]\w+"/>
+    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
     <br/>
     <label for="age">Age</label>
-    <input type="text" th:field="*{age}" id="age"/>
+    <input type="number" th:field="*{age}" id="age"/>
+    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
     <br/>
     <input type="submit" value="Add"/>
 </form>
