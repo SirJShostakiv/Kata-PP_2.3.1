@@ -2,6 +2,7 @@ package app.service;
 
 import app.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface UserService {
@@ -11,4 +12,5 @@ public interface UserService {
     void delete(int id);
 
     User getByID(int id);
+    List<Integer> getIdList();
 }

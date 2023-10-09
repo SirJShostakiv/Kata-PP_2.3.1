@@ -2,6 +2,7 @@ package app.dao;
 
 import app.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface UserDAO {
@@ -10,4 +11,5 @@ public interface UserDAO {
     void update(User user, int id);
     void delete(int id);
     User getByID(int id);
+    List<Integer> getIdList();
 }

@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/users")
 @ComponentScan("app")
@@ -49,6 +52,10 @@ public class UsersController {
 
     @GetMapping("/{id}")
     public String getEdit(@PathVariable("id") @RequestParam("id") int id, Model model) {
+        List<Integer> idList = new ArrayList<>(userService.getIdList());
+        if (!idList.contains(id)) {
+            return "input_error";
+        }
         User user = userService.getByID(id);
         model.addAttribute("user", user);
         return "edit";

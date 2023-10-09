@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @Transactional
@@ -73,5 +75,10 @@ public class UserDAOImpl implements UserDAO{
     public User getByID(int id) {
         EntityManager em = entityManagerFactory.createEntityManager();
         return em.find(User.class, id);
+    }
+
+    @Override
+    public List<Integer> getIdList() {
+        return read().stream().map(User::getId).collect(Collectors.toList());
     }
 }
